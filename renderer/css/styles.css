@@ -1,0 +1,2137 @@
+/* =========================
+   BASE THEME
+========================= */
+
+* {
+    box-sizing: border-box; /* This is the secret for matching heights */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #050914;
+    color: #e6e6e6;
+
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+/* Standardize every vertical gap in the app */
+.spacer {
+    height: 8px; 
+    margin: 0;
+    padding: 0;
+    display: block;
+    clear: both;
+}
+
+/* =========================
+   HIDE SCROLLBARS (GLOBAL FIX)
+========================= */
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+html, body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow: auto;
+}
+
+/* =========================
+   TITLE (RAINBOW)
+========================= */
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    letter-spacing: 1px;
+
+    background: linear-gradient(
+        90deg,
+        #ff4d6d,
+        #ffd166,
+        #00ff9d,
+        #4da3ff,
+        #b26bff,
+        #ff4d6d
+    );
+
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: rainbowFlow 6s linear infinite;
+}
+
+@keyframes rainbowFlow {
+    0% { background-position: 0%; }
+    100% { background-position: 300%; }
+}
+
+/* =========================
+   BUTTON BASE
+========================= */
+
+.button {
+    margin: 0 5px 8px 0 !important;
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    border-radius: 10px;
+    background: #0b1430;
+    color: #ffffff;
+    transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(80, 140, 255, 0.25);
+}
+
+/* =========================
+   NEON COLORS
+========================= */
+
+.green { border-color: #00ff9d; }
+.blue { border-color: #4da3ff; }
+.red { border-color: #ff4d6d; }
+.yellow { border-color: #ffd166; color: #fff; }
+.purple { border-color: #b26bff; }
+.magenta { border-color: #ff4df2; color: #fff; }
+.cyan { border-color: #00ffff; color: #fff; }
+.orange { border-color: #ff9800; color: #fff; }
+
+/* =========================
+   AUCTION BUTTON
+========================= */
+
+#btn-auction {
+    background: #0b1430;
+    color: #ffffff;
+    border: 1px solid #ffd166;
+}
+
+/* =========================
+   INPUTS (Match Order Box Style)
+========================= */
+
+#order-input, #dino-search, #customer-name, input[type="text"] {
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e6e6e6;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 0 0 5px 0 !important; 
+}
+
+#order-input {
+    width: 19%;
+    max-width: 2500px;
+    height: 120px;
+    margin: 0 0 5px 5px !important; 
+    display: block;
+}
+
+/* General Styling for any other input type text if needed */
+input[type="text"] {
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e6e6e6;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    margin-top: 10px;
+}
+
+#settings-panel textarea {
+    width: 100%;
+    height: 120px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+#order-summary {
+    width: calc(100% - 15px); /* Adjusted to fit the 5px left margin */
+    max-width: 2500px;
+    margin: 0 0 8px 5px !important; /* Fixed left margin to 5px */
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px;
+    background: #0b1430;
+    border-radius: 10px;
+    min-height: 50px;
+}
+
+/* =========================
+   TABLE LAYOUT
+========================= */
+
+.table-container {
+    display: flex;
+    justify-content: flex-start; /* Changed from space-between to left */
+    gap: 10px;
+    margin-left: 5px;            /* Hits the 5px vertical line */
+	margin-right: 5px;
+}
+
+table {
+    width: 50%; /* Adjusted so two fit side-by-side with 5px gaps */
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: #070d1f;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+th {
+    background: #0b1430;
+    color: #7aa7ff;
+}
+
+th, td {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 4px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* =========================
+   TABLE BUTTONS
+========================= */
+
+td button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 22px;
+    height: 22px;
+
+    padding: 0;
+    margin: 0;
+
+    font-size: 12px;
+    line-height: 1;
+
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    cursor: pointer;
+
+    background: #0b1430;
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+td button:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10px;
+
+    background: linear-gradient(90deg, #050b1a, #081a3a);
+    border-bottom: 1px solid rgba(0, 200, 255, 0.25);
+
+    -webkit-app-region: drag;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+    -webkit-app-region: no-drag;
+}
+
+.window-controls button {
+    width: 34px;
+    height: 28px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+.min-btn {
+    background: rgba(0, 200, 255, 0.2);
+    color: #00d9ff;
+}
+
+.min-btn:hover {
+    box-shadow: 0 0 10px #00d9ff;
+}
+
+.close-btn {
+    background: rgba(255, 0, 80, 0.2);
+    color: #ff2b6a;
+}
+
+.close-btn:hover {
+    box-shadow: 0 0 12px #ff2b6a;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.top-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.spacer {
+    margin-bottom: 10px;
+}
+
+/* =========================
+   DINO BUTTONS
+========================= */
+
+#dino-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 100%;
+	margin-left: 5px; /* Align to the 5px vertical line */
+}
+
+/* =========================
+   BOOSTER TABLE
+========================= */
+
+.booster-table-wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start; /* Changed from center to left */
+    align-items: flex-start;
+    margin-left: 5px;            /* Hits the 5px vertical line */
+	margin-right: 5px;
+}
+
+.booster-table {
+    width: 50%;
+    min-width: 400px;
+}
+
+/* =========================
+   TEMPLATE SYSTEM (FIXED ONLY)
+========================= */
+
+[data-template] {
+    display: none !important;
+}
+
+/* REGULAR */
+body.template-regular [data-template~="regular"],
+body.template-regular [data-template~="all"] {
+    display: revert !important;
+}
+
+body.template-regular #regular-tables {
+    display: flex !important;
+}
+
+/* BOOSTER */
+body.template-booster [data-template~="booster"],
+body.template-booster [data-template~="all"] {
+    display: revert !important;
+}
+
+body.template-booster #booster-table-container {
+    display: block !important;
+}
+
+body.template-booster #regular-tables {
+    display: none !important;
+}
+
+/* AUCTION */
+body.template-auction [data-template~="auction"],
+body.template-auction [data-template~="all"] {
+    display: revert !important;
+}
+
+body.template-auction #regular-tables {
+    display: flex !important;
+}
+
+body.template-auction #booster-table-container {
+    display: none !important;
+}
+
+/* ADMIN (FIXED SAFE VERSION) */
+
+body.template-admin [data-template~="admin"],
+body.template-admin [data-template~="all"] {
+    display: revert !important;
+}
+
+body.template-breeding [data-template~="breeding"] {
+    display: revert !important;
+}
+
+/* SAFE ADMIN LOCK */
+body.template-admin #dino-search,
+body.template-admin #btn-clear-search,
+body.template-admin #btn-scan-order,
+body.template-admin #btn-clear-order,
+body.template-admin #customer-name,
+body.template-admin #btn-clear-name,
+body.template-admin #btn-copy,
+body.template-admin #btn-reset,
+body.template-admin #fridge-selection,
+body.template-admin #fridge-number-selection,
+body.template-admin #regular-tables,
+body.template-admin #booster-table-container {
+    display: none !important;
+}
+
+/* Hide other sections when breeding is active */
+body.template-breeding #auction-section,
+body.template-breeding .dino-controls,
+body.template-breeding #order-input,
+body.template-breeding #fridge-selection,
+body.template-breeding #fridge-number-selection,
+body.template-breeding #payment-selection,
+body.template-breeding #order-summary,
+body.template-breeding #regular-tables,
+body.template-breeding #booster-table-container,
+body.template-breeding #admin-panel,
+body.template-breeding #notes-panel {
+    display: none !important;
+}
+
+/* =========================================================
+   AUCTION BOOSTER PLAYER CONTROLS
+   Hide collection controls when an Auction customer
+   is found in the Booster table.
+   ========================================================= */
+
+body.template-auction.auction-booster-detected #fridge-selection,
+body.template-auction.auction-booster-detected #fridge-number-selection,
+body.template-auction.auction-booster-detected #auction-collection-controls {
+    display: none !important;
+}
+
+/* =========================================================
+   AUCTION BOOSTER TABLE SWITCH
+   Show Booster table instead of Regular table when an
+   Auction customer is found in the Booster table.
+   ========================================================= */
+
+body.template-auction.auction-booster-detected #regular-tables {
+    display: none !important;
+}
+
+body.template-auction.auction-booster-detected #booster-table-container {
+    display: block !important;
+}
+
+/* =========================
+   INPUT CLICK FIX
+========================= */
+
+input,
+textarea,
+select,
+button {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 5;
+}
+
+/* =========================
+   STRICT TOP NAV OVERRIDES
+========================= */
+
+#btn-regular:hover, #btn-booster:hover, #btn-auction:hover, #btn-admin:hover {
+    box-shadow: none !important;
+}
+
+#btn-regular.active {
+    border-color: #00ff9d !important;
+    box-shadow: 0 0 15px 3px rgba(0, 255, 157, 0.7) !important;
+}
+
+#btn-booster.active {
+    border-color: #b26bff !important;
+    box-shadow: 0 0 15px 3px rgba(178, 107, 255, 0.7) !important;
+}
+
+#btn-auction.active {
+    border-color: #ffd166 !important;
+    box-shadow: 0 0 15px 3px rgba(255, 209, 102, 0.7) !important;
+}
+
+#btn-admin {
+    background: #0b1430;
+    color: #ffffff;
+    border: 1px solid #ff4d6d;
+    box-shadow: none !important;
+}
+
+#btn-admin.active {
+    border-color: #ff4d6d !important;
+    box-shadow: 0 0 15px 3px rgba(255, 77, 109, 0.7) !important;
+    transform: scale(1.05);
+}
+
+#btn-breeding.active {
+    border-color: #ff4df2 !important;
+    box-shadow: 0 0 15px 3px rgba(255, 77, 242, 0.7) !important;
+    transform: scale(1.05);
+}
+
+#btn-ads.active {
+    border-color: #00ffff !important;
+    box-shadow: 0 0 15px 3px rgba(0, 255, 255, 0.7) !important;
+    transform: scale(1.05);
+}
+
+/* =========================
+   GENERAL BUTTON GLOWS
+========================= */
+
+.button.active {
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.7);
+    border-color: white;
+    transform: scale(1.05);
+}
+
+.button.green.active {
+    box-shadow: 0 0 15px 3px rgba(0, 255, 157, 0.7);
+    border-color: #00ff9d;
+}
+
+.button.blue.active {
+    box-shadow: 0 0 15px 3px rgba(77, 163, 255, 0.7);
+    border-color: #4da3ff;
+}
+
+.button.red.active:not(#btn-admin) {
+    box-shadow: 0 0 15px 3px rgba(255, 77, 109, 0.7);
+    border-color: #ff4d6d;
+}
+
+.button.yellow.active {
+    box-shadow: 0 0 15px 3px rgba(255, 209, 102, 0.7);
+    border-color: #ffd166;
+}
+
+.button.purple.active {
+    box-shadow: 0 0 15px 3px rgba(160, 32, 240, 0.7);
+    border-color: #a020f0;
+}
+
+.button.cyan.active {
+    box-shadow: 0 0 15px 3px rgba(0, 255, 255, 0.7);
+    border-color: #00ffff;
+}
+
+.button.orange.active {
+    border-color: #ff9800 !important;
+    box-shadow: 0 0 15px 3px rgba(255, 152, 0, 0.7) !important;
+}
+
+/* =========================
+   RAINBOW FOCUS EFFECT
+========================= */
+
+@keyframes rainbowGlow {
+    0% { border-color: #ff4d6d; box-shadow: 0 0 10px rgba(255, 77, 109, 0.6); }
+    20% { border-color: #ffd166; box-shadow: 0 0 10px rgba(255, 209, 102, 0.6); }
+    40% { border-color: #00ff9d; box-shadow: 0 0 10px rgba(0, 255, 157, 0.6); }
+    60% { border-color: #4da3ff; box-shadow: 0 0 10px rgba(77, 163, 255, 0.6); }
+    80% { border-color: #b26bff; box-shadow: 0 0 10px rgba(178, 107, 255, 0.6); }
+    100% { border-color: #ff4d6d; box-shadow: 0 0 10px rgba(255, 77, 109, 0.6); }
+}
+
+input:focus, 
+textarea:focus, 
+[contenteditable="true"]:focus {
+    outline: none;
+    animation: rainbowGlow 3s linear infinite;
+    background: #0d1b3e;
+    border-width: 1px;
+    border-style: solid;
+}
+
+input, textarea, [contenteditable="true"] {
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* =========================
+   DINO BUTTONS TEMPLATE LOCK (FIXED)
+========================= */
+
+body.template-admin #dino-buttons,
+body.template-auction #dino-buttons {
+    display: none !important;
+}
+
+/* =========================
+   ADMIN UI VISUAL ALIGNMENT FIX
+========================= */
+
+body.template-admin {
+    display: block;
+}
+
+body.template-admin .admin-container,
+body.template-admin .admin-panel,
+body.template-admin #admin-panel,
+body.template-admin .inline-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Must be flex-start to allow left alignment */
+}
+
+body.template-admin h1,
+body.template-admin h2,
+body.template-admin h3 {
+    text-align: center;
+    width: 100%; /* Spans the width to allow centering */
+    margin-left: 0;
+}
+
+body.template-admin #dinoTable,
+body.template-admin table {
+    margin: 0 0 20px 5px !important; /* Matches the 5px left line */
+    width: auto;
+    min-width: 60%;
+}
+
+/* Make sure table sits nicely and doesn't stretch awkwardly */
+body.template-admin table {
+    width: auto;
+    min-width: 60%;
+}
+
+/* Make ALL admin inputs match your existing input style */
+body.template-admin input[type="text"],
+body.template-admin input[type="number"],
+body.template-admin textarea {
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e6e6e6;
+    border-radius: 8px;
+    padding: 8px;
+    width: 300px;
+    margin: 6px 0;
+}
+
+/* Stack form fields nicely */
+body.template-admin label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 6px 0;
+}
+
+/* Keep “Add New Dino” form centered */
+body.template-admin form,
+body.template-admin #add-dino-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Match file input to button styling */
+body.template-admin input[type="file"] {
+    color: #e6e6e6;
+}
+
+body.template-admin input[type="file"]::file-selector-button {
+    margin: 0 !important;
+    padding: 10px 14px;
+
+    height: 38px;
+    width: 115px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+
+    background: #0b1430;
+    color: #ffffff;
+
+    cursor: pointer;
+
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+
+    transition:
+        transform 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out,
+        border-color 0.2s ease-in-out;
+
+    vertical-align: middle;
+
+    /* THE FIXES */
+    position: relative;
+    top: 0;
+    overflow: visible;
+}
+
+body.template-admin input[type="file"]::file-selector-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 12px rgba(80, 140, 255, 0.25),
+        0 0 4px rgba(80, 140, 255, 0.15);
+
+    z-index: 2;
+}
+
+/* Align controls to the left line */
+body.template-admin #dino-search,
+body.template-admin #btn-add-dino,
+body.template-admin #btn-save-dino {
+    display: block;
+    margin: 8px 0 8px 5px !important;
+}
+
+/* =========================
+   ADMIN PANEL LAYOUT FIX (PATCH ONLY)
+========================= */
+
+/* keep admin layout unchanged globally */
+body.template-admin {
+    display: block;
+}
+
+body.template-admin .top-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    gap: 10px; 
+    width: 100%;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    /* FIX: min-height ensures there is space above the buttons for the hover jump */
+    min-height: 60px;             
+    overflow: visible !important;  
+}
+
+/* FIX: Removes the bottom margin causing the Download button to look higher */
+body.template-admin .top-bar .button {
+    margin: 0 !important;
+}
+
+body.template-admin #fileInput {
+    margin: 0 0 0 10px !important; 
+    padding: 0 !important;
+    height: 38px;
+    width: 115px;                 
+    /* FIX: overflow: visible allows the top and left glow to show */
+    overflow: visible !important;  
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+/* center ONLY the Add Dino card content */
+body.template-admin .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* INLINE row for Short Name / Full / Price / Add button */
+body.template-admin .card h3 + input#name {
+    margin-top: 10px;
+}
+
+body.template-admin .card {
+    text-align: center;
+}
+
+/* create inline row WITHOUT touching existing structure */
+body.template-admin #name,
+body.template-admin #full,
+body.template-admin #price {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* force grouping behaviour without removing existing styles */
+body.template-admin #name,
+body.template-admin #full,
+body.template-admin #price {
+    width: 300px;
+}
+
+/* ensure Add button stays inline with inputs */
+body.template-admin .card .button {
+    vertical-align: middle;
+}
+
+body.template-admin #search {
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e6e6e6;
+    border-radius: 8px;
+    padding: 8px;
+    width: 300px;
+    display: block;
+    /* 0px top, 0px right, 8px bottom (gap), 5px left (alignment) */
+    margin: 0 0 7px 5px !important; 
+}
+
+/* =========================
+   ADMIN INPUT CONSISTENCY FIX
+========================= */
+
+body.template-admin #name,
+body.template-admin #full,
+body.template-admin #price,
+body.template-admin #search {
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e6e6e6;
+    border-radius: 8px;
+    padding: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* =========================
+   CUSTOM CONFIRM MODAL
+========================= */
+
+#confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.confirm-box {
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+
+    padding: 20px;
+    width: 320px;
+
+    text-align: center;
+    box-shadow: 0 0 20px rgba(77,163,255,0.3);
+}
+
+.confirm-text {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #e6e6e6;
+}
+
+.confirm-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Center the button in the alert specifically */
+.alert-btn-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Ensure the red outline button matches your admin theme pulse/glow */
+#app-alert-ok-btn:hover {
+    box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+    background: #1a0a1a;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   PIN DISPLAY VISIBILITY
+========================= */
+
+/* Hide it by default on ALL templates */
+#pin-display, .pin-container { 
+    display: none !important; 
+}
+
+/* Show it ONLY when body has the regular or auction class */
+body.template-regular #pin-display,
+body.template-auction #pin-display {
+    display: block !important; /* or flex/inline-block depending on your layout */
+}
+
+/* =========================
+   NOTES TEMPLATE LOGIC
+========================= */
+
+/* Reveal notes when active */
+body.template-notes [data-template~="notes"] {
+    display: revert !important;
+}
+
+/* Hide everything else when notes is active */
+body.template-notes #auction-section,
+body.template-notes .dino-controls,
+body.template-notes #dino-buttons,
+body.template-notes #order-input,
+body.template-notes .inline-group,
+body.template-notes #fridge-selection,
+body.template-notes #fridge-number-selection,
+body.template-notes #btn-pin,
+body.template-notes #pin-display,
+body.template-notes #payment-selection,
+body.template-notes #order-summary,
+body.template-notes #regular-tables,
+body.template-notes #booster-table-container,
+body.template-notes #admin-panel {
+    display: none !important;
+}
+
+/* Notes Button Glow - BLUE FRIDGE STYLE */
+#btn-notes.active {
+    border-color: #4da3ff !important;
+    box-shadow: 0 0 15px 3px rgba(77, 163, 255, 0.7) !important;
+    transform: scale(1.05);
+}
+
+/* Note Input Box (Matching your order input box exactly) */
+#note-input {
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e6e6e6;
+    border-radius: 8px;
+    padding: 8px;
+    width: 22%; /* Matches your order-input width */
+    max-width: 2500px;
+    height: 120px;
+    margin: 10px auto;
+    display: block;
+}
+
+/* Container to center notes and prevent them from stretching height */
+#notes-display-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centering the notes horizontally */
+    align-items: flex-start; /* This prevents notes from scaling to the tallest one */
+    gap: 15px;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+/* Individual Note Blocks */
+.note-block {
+    position: relative;
+    background: #0b1430;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e6e6e6;
+    padding: 30px 15px 15px 15px; 
+    border-radius: 10px;
+    width: 250px;
+    height: auto;
+    min-height: 50px;
+    word-wrap: break-word;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+}
+
+/* 🔥 RAINBOW GLOW ON FOCUS */
+/* This triggers when you click the text inside the note */
+.note-block:focus-within {
+    animation: rainbowGlow 3s linear infinite; /* Uses your existing rainbow animation */
+    background: #0d1b3e;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.note-delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #ff4d6d;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    z-index: 20; 
+}
+
+.note-delete-btn:hover {
+    transform: scale(1.3);
+    color: #ff8095;
+}
+
+.note-content {
+    white-space: pre-wrap;
+    font-size: 14px;
+    cursor: text;
+    
+    /* 🔥 REMOVE ALL INNER BOXES */
+    outline: none !important;      /* Removes the blue/orange ring */
+    box-shadow: none !important;   /* Removes any glow inside the text area */
+    border: none !important;       /* Removes any faint default borders */
+    
+    min-height: 40px; 
+    transition: color 0.3s ease;
+}
+
+/* One more specific check to ensure your global focus style 
+   doesn't force itself onto the inner text box */
+.note-content:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #ffffff;
+}
+
+/* =========================
+   SETTINGS TEMPLATE
+========================= */
+
+/* Hide non-settings templates when Settings is active */
+body.template-settings [data-template]:not([data-template~="settings"]) {
+    display: none !important;
+}
+
+/* Show Settings template */
+body.template-settings [data-template~="settings"] {
+    display: block !important;
+}
+
+/* Tables do not use data-template, so hide them explicitly */
+body.template-settings #regular-tables,
+body.template-settings #booster-table-container {
+    display: none !important;
+}
+
+/* =========================
+   SETTINGS BUTTON
+========================= */
+
+#btn-settings.active {
+    border-color: #ff9800 !important;
+    box-shadow: 0 0 15px 3px rgba(255, 152, 0, 0.7) !important;
+    background: #1a1205 !important;
+    transform: scale(1.05);
+}
+
+/* Reveal Ads when active */
+body.template-ads [data-template~="ads"] {
+    display: revert !important;
+}
+
+/* Hide everything else when Ads is active */
+body.template-ads #auction-section,
+body.template-ads .dino-controls,
+body.template-ads #dino-buttons,
+body.template-ads #order-input,
+body.template-ads .inline-group,
+body.template-ads #fridge-selection,
+body.template-ads #fridge-number-selection,
+body.template-ads #payment-selection,
+body.template-ads #order-summary,
+body.template-ads #regular-tables,
+body.template-ads #booster-table-container,
+body.template-ads #admin-panel,
+body.template-ads #notes-panel,
+body.template-ads #breeding-library-display,
+body.template-ads .breeding-form-card,
+body.template-ads .breeding-controls {
+    display: none !important;
+}
+
+/* =========================
+   PIN BUTTON STYLING
+========================= */
+
+.pin-btn {
+    background: transparent; /* Removes that white box */
+    color: #888;             /* Dimmer color when inactive */
+    border: none;
+    cursor: pointer;
+    
+    width: 34px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    
+    transition: all 0.2s ease-in-out;
+    margin-right: 5px;
+}
+
+/* Subtle highlight when hovering */
+.pin-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* The "Pinned" State (Matching your Blue theme) */
+.pin-btn.active {
+    background: rgba(0, 217, 255, 0.2); /* Matches your min-btn blue transparency */
+    color: #00d9ff;                     /* Neon Blue */
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+}
+
+/* SVG Icon logic within the button */
+.pin-btn svg {
+    transition: transform 0.3s ease;
+    transform: rotate(45deg); /* Angled when unpinned */
+}
+
+.pin-btn.active svg {
+    transform: rotate(0deg);  /* Vertical when pinned */
+}
+
+/* =========================
+   SCROLL TO TOP BUTTON (SQUARE & BOLD)
+========================= */
+
+/* =========================
+   SCROLL TO TOP BUTTON (SQUARE & BOLD)
+========================= */
+
+.scroll-top-btn {
+    position: fixed !important;
+    bottom: 20px;
+    right: 20px;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    font-size: 24px;
+    font-weight: 900;
+
+    /* FIXED RAINBOW TEXT */
+    color: #ff4d6d;
+    animation: rainbowPulse 3s linear infinite;
+
+    border: none !important;
+}
+
+.scroll-top-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.scroll-top-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+/* Rainbow Arrow Animation */
+@keyframes rainbowPulse {
+    0%   { color: #ff4d6d; }
+    20%  { color: #ffd166; }
+    40%  { color: #00ff9d; }
+    60%  { color: #4da3ff; }
+    80%  { color: #b26bff; }
+    100% { color: #ff4d6d; }
+}
+
+/* F2F Button Specific Active State (Red Glow) */
+#btn-f2f.active {
+    border-color: #ff4d6d !important;
+    box-shadow: 0 0 15px 3px rgba(255, 77, 109, 0.7) !important;
+    background: #1a0a1a; /* Slight dark red tint */
+    transform: scale(1.05);
+}
+
+/* =========================
+   AUTO-BOOSTER VISUALS
+========================= */
+
+#customer-name.booster-detected {
+    border-color: #b26bff !important; /* Purple border */
+    box-shadow: 0 0 15px 2px rgba(178, 107, 255, 0.6) !important; /* Purple glow */
+    background: #140b2a !important; /* Subtle dark purple background tint */
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* =========================
+   DISCORD CHARACTER COUNTER FIX
+========================= */
+.char-counter {
+    text-align: right;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    
+    /* Pull it up inside the box without taking up layout space */
+    position: relative;
+    top: -22px;             /* Position it inside the summary box */
+    height: 0;              /* THIS IS THE FIX: It now takes up 0px of vertical flow */
+    margin: 0 25px 0 0;     /* Remove existing margins */
+    
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Red Warning State */
+.char-limit-exceeded {
+    color: #ff4d6d !important;       /* Your theme's Neon Red */
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 77, 109, 0.5);
+}
+
+/* New Rainbow Border Animation for Order Summary */
+.scan-success-glow {
+    animation: borderRainbow 3s linear infinite !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+    background: #0d1b3e !important; /* Slightly lighter blue to make the text pop */
+    transition: all 0.3s ease;
+}
+
+@keyframes borderRainbow {
+    0%   { border-color: #ff4d6d; box-shadow: 0 0 15px rgba(255, 77, 109, 0.4); }
+    20%  { border-color: #ffd166; box-shadow: 0 0 15px rgba(255, 209, 102, 0.4); }
+    40%  { border-color: #00ff9d; box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
+    60%  { border-color: #4da3ff; box-shadow: 0 0 15px rgba(77, 163, 255, 0.4); }
+    80%  { border-color: #b26bff; box-shadow: 0 0 15px rgba(178, 107, 255, 0.4); }
+    100% { border-color: #ff4d6d; box-shadow: 0 0 15px rgba(255, 77, 109, 0.4); }
+}
+
+/* =========================
+   RAINBOW TOAST (CYCLING)
+========================= */
+
+.toast-rainbow {
+    /* 1. Use the new Background Cycling animation instead of gradient */
+    animation: toastFadeInUp 0.3s ease-out, toastBackgroundRainbow 3s linear infinite !important;
+    
+    /* 2. Text styling: Dark text is easier to read on bright rainbow colors */
+    color: #050914 !important; 
+    font-weight: 900;
+    font-size: 14px;
+    
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+}
+
+/* This animation shifts the WHOLE background color through the rainbow */
+@keyframes toastBackgroundRainbow {
+    0%   { background-color: #ff4d6d; box-shadow: 0 0 15px rgba(255, 77, 109, 0.6); }
+    20%  { background-color: #ffd166; box-shadow: 0 0 15px rgba(255, 209, 102, 0.6); }
+    40%  { background-color: #00ff9d; box-shadow: 0 0 15px rgba(0, 255, 157, 0.6); }
+    60%  { background-color: #4da3ff; box-shadow: 0 0 15px rgba(77, 163, 255, 0.6); }
+    80%  { background-color: #b26bff; box-shadow: 0 0 15px rgba(178, 107, 255, 0.6); }
+    100% { background-color: #ff4d6d; box-shadow: 0 0 15px rgba(255, 77, 109, 0.6); }
+}
+
+/* Ensure the fade out still works smoothly */
+.toast-fade-out {
+    opacity: 0 !important;
+    transform: translate(-50%, -20px) !important;
+    transition: all 0.4s ease-in !important;
+}
+
+/* Ensure the container stays centered */
+#toast-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================
+   NOTE PRIORITY UI
+========================= */
+
+.priority-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+}
+
+/* Shrink the "Priority" text */
+.priority-label {
+    font-size: 10px; /* Slightly smaller */
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Slightly larger circles (17px) */
+.dot {
+    width: 17px; 
+    height: 17px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none !important;
+    transition: all 0.2s ease-in-out;
+    opacity: 0.3;
+}
+
+.dot:hover { opacity: 0.6; }
+
+/* Active State: Matching colored glow, no white border */
+.dot.active {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.dot.green { background-color: #00ff9d; }
+.dot.green.active { box-shadow: 0 0 10px 2px rgba(0, 255, 157, 0.5); }
+
+.dot.yellow { background-color: #ffd166; }
+.dot.yellow.active { box-shadow: 0 0 10px 2px rgba(255, 209, 102, 0.5); }
+
+.dot.red { background-color: #ff4d6d; }
+.dot.red.active { box-shadow: 0 0 10px 2px rgba(255, 77, 109, 0.5); }
+
+/* =========================
+   FIXED: NOTE BLOCK BORDERS
+========================= */
+/* These MUST match the class injected by JS */
+.note-block.priority-green {
+    border-left: 6px solid #00ff9d !important;
+}
+
+.note-block.priority-yellow {
+    border-left: 6px solid #ffd166 !important;
+}
+
+.note-block.priority-red {
+    border-left: 6px solid #ff4d6d !important;
+    box-shadow: 0 0 10px rgba(255, 77, 109, 0.15); /* Slight urgency glow */
+}
+
+/* Note Entrance Animation */
+@keyframes notePopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+    }
+    70% {
+        transform: scale(1.08) translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.note-block {
+    animation: notePopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-fill-mode: backwards; /* Add this line */
+}
+
+/* Enhanced Confetti Particle */
+.confetti-particle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* Larger Base Size */
+    width: 14px; 
+    height: 14px;
+    pointer-events: none;
+    z-index: 10001;
+    border-radius: 2px;
+    /* Adds a subtle glow to make them pop against the dark background */
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+/* =========================
+   PIN DISPLAY (STRICTLY UNDER BUTTON)
+========================= */
+
+#pin-display {
+    /* Takes up zero space when empty */
+    display: none;
+    margin: 0;
+}
+
+#pin-display:not(:empty) {
+    display: block !important;
+    margin-bottom: 8px !important; 
+    margin-top: 0 !important;
+    padding: 4px 12px;
+    background: #0b1430;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    width: fit-content;
+    text-align: center;
+    animation: borderRainbow 3s linear infinite !important;
+    border: 2px solid transparent; 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+   AUCTION SECTION ALIGNMENT
+========================= */
+
+#auction-section {
+    margin: 0 0 5px 5px;
+    display: flex;
+    align-items: center;
+}
+
+#auction-section input {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+#auction-section .button {
+    margin-left: 0;
+}
+
+.inline-group, 
+#fridge-selection, 
+#fridge-number-selection, 
+#payment-selection,
+.dino-controls,
+#auction-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+
+/* =========================
+   BREEDING TEMPLATE UI
+========================= */
+
+.breeding-controls {
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* The "Add New Dino" Form Card */
+.breeding-form-card {
+    background: #0b1430;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    width: fit-content;
+    margin-left: 5px;
+}
+
+/* Color Palette Layout (Horizontal) */
+.color-input-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.color-box-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.color-box-wrap label {
+    font-size: 10px;
+    color: #4da3ff;
+}
+
+/* =========================
+   UNIFIED COLOR SYSTEM
+   (APPLIES TO INPUTS + CARDS)
+========================= */
+
+/* White */
+.ark-color-0,
+.color-dot.ark-color-0,
+.color-input.ark-color-0 {
+    background-color: #ffffff !important;
+    color: #050914 !important;
+}
+
+/* Red */
+.ark-color-1,
+.color-dot.ark-color-1,
+.color-input.ark-color-1 {
+    background-color: #ff0000 !important;
+    color: #ffffff !important;
+}
+
+/* Blue */
+.ark-color-2,
+.color-dot.ark-color-2,
+.color-input.ark-color-2 {
+    background-color: #0000ff !important;
+    color: #ffffff !important;
+}
+
+/* Green */
+.ark-color-3,
+.color-dot.ark-color-3,
+.color-input.ark-color-3 {
+    background-color: #00ff00 !important;
+    color: #000000 !important;
+}
+
+/* Yellow */
+.ark-color-4,
+.color-dot.ark-color-4,
+.color-input.ark-color-4 {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+}
+
+/* Cyan */
+.ark-color-5,
+.color-dot.ark-color-5,
+.color-input.ark-color-5 {
+    background-color: #00ffff !important;
+    color: #000000 !important;
+}
+
+/* Magenta */
+.ark-color-6,
+.color-dot.ark-color-6,
+.color-input.ark-color-6 {
+    background-color: #ff00ff !important;
+    color: #000000 !important;
+}
+
+/* The Card Display Grid */
+#breeding-library-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-left: 5px;
+    padding-bottom: 50px;
+}
+
+/* =========================
+   BREEDING FORM POLISH
+========================= */
+
+/* 1. Remove Number Arrows (Spinners) globally for a cleaner look */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield; /* For Firefox */
+}
+
+/* 2. Rainbow Header for the Card Creator */
+.breeding-form-card h3 {
+    text-align: center;
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #ff4d6d, #ffd166, #00ff9d, #4da3ff, #b26bff, #ff4d6d);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowFlow 6s linear infinite;
+}
+
+/* 3. Improved Stat Row Alignment */
+.stats-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Vertical gap between Health, Stamina, etc. */
+    width: 100%;
+}
+
+/* Fixed label width ensures all text boxes start at the exact same pixel */
+.stat-row label {
+    width: 80px; 
+    font-size: 11px;
+    color: #4da3ff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.breeding-card {
+    background: #0b1430;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 10px 8px; 
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+    
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    /* ADD THIS LINE: This triggers the bounce whenever the card is rendered or the template is switched */
+    animation: notePopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.breeding-card {
+    animation: notePopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-fill-mode: backwards; /* Add this line */
+}
+
+.breeding-card:active {
+    cursor: grabbing;
+}
+
+.breeding-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Rainbow animated border layer */
+.breeding-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: 10px;
+    background: linear-gradient(
+        90deg,
+        #ff4d6d,
+        #ffd166,
+        #00ff9d,
+        #4da3ff,
+        #b26bff,
+        #ff4d6d
+    );
+    background-size: 300%;
+    animation: rainbowFlow 6s linear infinite;
+
+    /* mask trick to only show border */
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+/* Hover activates rainbow border */
+.breeding-card:hover::before {
+    opacity: 1;
+}
+
+.breeding-card:hover {
+    border-color: transparent;
+    transform: translateY(-5px);
+}
+
+.breeding-card h3 {
+    margin: 0 0 10px 0;
+    color: #ffffff;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 5px;
+	
+	text-align: center;
+}
+
+.breeding-card.dragging {
+    opacity: 0.4;
+    border: 1px dashed #4da3ff;
+}
+
+.card-stats-grid {
+    /* THE KEY: Reserve exactly enough height for 6 stats (approx 16px per line) */
+    /* If the gap is still too big, decrease this number (e.g., 90px) */
+    height: 96px; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    
+    font-size: 13px;
+    color: #00ffcc;
+    width: 100%;
+    max-width: fit-content; /* Keeps it centered */
+    margin: 0 auto;
+}
+
+.card-level-section {
+    /* Remove margin-top: auto so it sits directly under the 96px stats box */
+    margin-top: 5px; 
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.card-colors-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+/* =========================
+   CONSISTENT DELETE BUTTONS
+========================= */
+
+.delete-card-btn {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #ff4d6d;
+    font-size: 18px;       /* Matches Notes X size */
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    z-index: 20;
+}
+
+.delete-card-btn:hover {
+    transform: scale(1.3); /* Matches Notes hover effect */
+    color: #ff8095;
+}
+
+/* =========================
+   SAVE DINO CARD BUTTON (RAINBOW PRIMARY ACTION)
+========================= */
+
+.rainbow-btn, .button.save-dino-card {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border: 1px solid transparent !important;
+}
+
+.rainbow-btn::before, .button.save-dino-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(90deg, #ff4d6d, #ffd166, #00ff9d, #4da3ff, #b26bff, #ff4d6d);
+    background-size: 300%;
+    animation: rainbowFlow 6s linear infinite;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.rainbow-btn::after, .button.save-dino-card::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: #0b1430;
+    border-radius: 9px;
+    z-index: -1;
+}
+
+.button.save-dino-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(77, 163, 255, 0.2);
+}
+
+/* =========================
+   STAT INPUTS & ALIGNMENT
+========================= */
+
+/* The Header Row (WILD / MUT) */
+.stat-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Pushes titles to the right */
+    gap: 5px; 
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.stat-label-sub {
+    width: 65px; 
+    text-align: center;
+    font-size: 10px;
+    color: #4da3ff;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between;  <-- You can remove this or leave it */
+    width: 100%; 
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+/* THE FIX: This pushes the first box (Wild) and everything after it to the far right */
+.stat-row .stat-box:first-of-type {
+    margin-left: auto;
+}
+
+.stat-row label {
+    width: 80px; 
+    font-size: 11px;
+    color: #4da3ff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.stat-box, .color-box {
+    position: relative;
+    display: inline-block;
+}
+
+.stat-box::before, .color-box::before {
+    content: "";
+    position: absolute;
+    inset: -1px; 
+    border-radius: 8px;
+    background: linear-gradient(
+        90deg,
+        #ff4d6d,
+        #ffd166,
+        #00ff9d,
+        #4da3ff,
+        #b26bff,
+        #ff4d6d
+    );
+    background-size: 300%;
+    animation: rainbowFlow 6s linear infinite;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 1;
+}
+
+/* Trigger Glow on click/focus */
+.stat-box:focus-within::before, .color-box:focus-within::before {
+    opacity: 1 !important;
+    box-shadow: 0 0 12px rgba(77, 163, 255, 0.3);
+}
+
+.stat-box input {
+    width: 65px !important;
+    height: 32px !important;
+    background: #050914 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    color: #00ffcc !important;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    margin: 0 !important;
+}
+
+/* =========================
+   CLEANED COLOR INPUTS & SYSTEM
+========================= */
+
+.color-input, 
+.color-box input.color-input {
+    width: 45px !important;
+    height: 45px !important;
+    text-align: center;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 6px !important;
+    background-color: #050914; 
+    color: #00ffcc;
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.color-input.ark-color-0 { background-color: #ffffff !important; color: #000 !important; }
+.color-input.ark-color-1 { background-color: #ff0000 !important; color: #fff !important; }
+.color-input.ark-color-2 { background-color: #0000ff !important; color: #fff !important; }
+.color-input.ark-color-3 { background-color: #00ff00 !important; color: #000 !important; }
+.color-input.ark-color-4 { background-color: #ffff00 !important; color: #000 !important; }
+.color-input.ark-color-5 { background-color: #00ffff !important; color: #000 !important; }
+.color-input.ark-color-6 { background-color: #ff00ff !important; color: #000 !important; }
+
+/* Dark background overlay for zooming */
+#card-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85); /* Dark transparent background */
+    z-index: 10000; /* Ensure it stays on top of absolutely everything */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Suggests to the user they can click to exit */
+}
+
+/* The cloned card inside the overlay */
+#card-overlay .breeding-card {
+    transform: scale(1.6); /* Adjust this value to make it bigger or smaller (e.g., 2.0 or 1.5) */
+    margin: 0;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9); /* Gives it a nice floating shadow effect */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* =========================
+   ADMIN RAINBOW HEADING
+========================= */
+body.template-admin .card h3 {
+    text-align: center;
+    margin: 0 0 15px 0;
+    letter-spacing: 1px;
+    font-size: 18px;
+
+    /* The Rainbow Magic */
+    background: linear-gradient(
+        90deg,
+        #ff4d6d,
+        #ffd166,
+        #00ff9d,
+        #4da3ff,
+        #b26bff,
+        #ff4d6d
+    );
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Uses your global rainbow animation */
+    animation: rainbowFlow 6s linear infinite;
+}
+
+/* =========================
+   DINO STOCK COLORS
+   ========================= */
+
+.stock-value {
+    font-weight: bold;
+}
+
+.stock-red {
+    color: red;
+}
+
+.stock-orange {
+    color: orange;
+}
+
+.stock-green {
+    color: green;
+}
+
+.file-input-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    /* Match .button exactly */
+    margin: 0 5px 8px 0 !important;
+    padding: 10px 14px;
+    box-sizing: border-box;
+
+    /* Make label text behave like the button */
+    font: inherit;
+    color: #ffffff;
+    line-height: normal;
+
+    cursor: pointer;
+}
+
+/* Admin top-bar buttons */
+.admin-file-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 38px;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1;
+    font-family: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    margin: 0 !important;
+}
+
+/* Hide the real file input */
+#fileInput {
+    display: none !important;
+}
+
+/* =========================================================
+   SETTINGS - ORDER SUMMARY INPUT BOXES
+   Matches the normal app input focus behavior
+========================================================= */
+
+#settings-panel #settings-regular,
+#settings-panel #settings-booster,
+#settings-panel #settings-auction {
+    width: 100% !important;
+    height: 200px !important;
+    box-sizing: border-box !important;
+    padding: 8px !important;
+    margin-top: 10px !important;
+
+    background: #0b1430 !important;
+    color: #e6e6e6 !important;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px !important;
+
+    outline: none !important;
+	
+	resize: none !important;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#settings-panel #settings-regular:focus,
+#settings-panel #settings-booster:focus,
+#settings-panel #settings-auction:focus {
+    outline: none !important;
+
+    animation: rainbowGlow 3s linear infinite !important;
+
+    background: #0d1b3e !important;
+
+    border-width: 1px !important;
+    border-style: solid !important;
+}
+
+/* =========================================================
+   SETTINGS - ORDER SUMMARY PREVIEW
+   NEW PREVIEW ONLY - DOES NOT AFFECT EXISTING INPUTS
+========================================================= */
+
+#settings-template-preview-container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#settings-template-preview {
+    width: 100%;
+    min-height: 180px;
+    max-height: 400px;
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    background: #0b1430;
+    color: #e6e6e6;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+
+    text-align: left;
+    overflow-y: auto;
+}
+
+/* =========================================================
+   SETTINGS - ADDITIONAL ORDER SUMMARY INPUT BOXES
+   Matches the normal app input focus behavior
+========================================================= */
+
+#settings-panel .settings-additional-text-field {
+    width: 100% !important;
+    height: 200px !important;
+    box-sizing: border-box !important;
+    padding: 8px !important;
+    margin-top: 10px !important;
+
+    background: #0b1430 !important;
+    color: #e6e6e6 !important;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px !important;
+
+    outline: none !important;
+    
+    resize: none !important;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#settings-panel .settings-additional-text-field:focus {
+    outline: none !important;
+
+    animation: rainbowGlow 3s linear infinite !important;
+
+    background: #0d1b3e !important;
+
+    border-width: 1px !important;
+    border-style: solid !important;
+}

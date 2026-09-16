@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prismatic Predators Order Form</title>
+
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/ads.css"> 
+
+<link rel="icon" type="image/x-icon" href="../assets/icon.png">
+
+</head>
+
+<body class="template-regular">
+
+<div class="topbar">
+  <div class="window-controls">
+	<button id="pin-btn" class="pin-btn" onclick="toggleAlwaysOnTop()">
+		<svg id="pin-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+			<path d="M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z" />
+		</svg>
+	</button>
+    <button class="min-btn" onclick="window.windowControls.minimize()">−</button>
+    <button class="close-btn" onclick="window.windowControls.close()">×</button>
+  </div>
+</div>
+
+<h1 id="main-title"></h1>
+
+<div class="top-buttons">
+    <button id="btn-regular" class="button green">Regular</button>
+    <button id="btn-booster" class="button purple">Booster</button>
+    <button id="btn-auction" class="button">Auction</button>
+	<button id="btn-admin" class="button">Admin</button>
+	<button id="btn-notes" class="button blue">Notes</button>
+	<button id="btn-breeding" class="button magenta">Breeding</button>
+	<button id="btn-ads" class="button cyan">Ads</button>
+	<button id="btn-settings" class="button orange">Settings</button>
+</div>
+
+<div class="spacer"></div>
+
+<div id="auction-section" data-template="auction">
+    <input id="auction-dino-name" type="text" placeholder="Auction Dino Name">
+    <input id="auction-bid" type="text" placeholder="Winning Tek Amount">
+    <button class="button rainbow-btn" id="btn-update-auction">Update</button>
+</div>
+
+<div class="dino-controls inline-group" data-template="regular booster">
+
+    <button id="toggle-dinos-btn" class="button rainbow-btn">Hide Dinos</button>
+
+    <input type="text" id="dino-search" placeholder="Search dinos...">
+
+    <button class="button" id="btn-clear-search">Clear</button>
+
+</div>
+
+<div id="dino-buttons" class="button-container"></div>
+
+<textarea id="order-input" data-template="regular booster" placeholder="Paste order text here..."></textarea>
+
+<div class="inline-group" data-template="regular booster">
+    <button class="button rainbow-btn" id="btn-scan-order">Scan Order</button>
+    <button class="button" id="btn-clear-order">Clear</button>
+    
+    <!-- This is the moved and updated counter -->
+    <div id="parser-feedback">
+        <b>Dinos identified:</b> <span id="identified-count" style="color: #ffffff;">0/0</span>
+    </div>
+</div>
+
+<div class="inline-group" data-template="regular booster auction">
+    <input type="text" id="customer-name" placeholder="Customer Name">
+    <button class="button" id="btn-clear-name">Clear Name</button>
+    <button class="button" id="btn-fanatic" data-template="booster">Fanatic Mode</button>
+</div>
+
+<div id="fridge-selection" data-template="regular auction">
+    <button class="green button" data-fridge="GREEN">GREEN</button>
+    <button class="blue button" data-fridge="BLUE">BLUE</button>
+    <button class="red button" data-fridge="RED">RED</button>
+    <button class="yellow button" data-fridge="YELLOW">YELLOW</button>
+</div>
+
+<div id="fridge-number-selection" data-template="regular auction">
+    <button class="button" data-fridge-number="1">#1</button>
+    <button class="button" data-fridge-number="2">#2</button>
+    <button class="button" data-fridge-number="3">#3</button>
+    <button class="button" data-fridge-number="4">#4</button>
+    <button class="button" data-fridge-number="5">#5</button>
+    <button class="button" data-fridge-number="6">#6</button>
+    <button class="button" data-fridge-number="7">#7</button>
+    <button class="button" data-fridge-number="8">#8</button>
+    <button class="button" data-fridge-number="9">#9</button>
+    <button class="button" data-fridge-number="10">#10</button>
+</div>
+
+<div id="auction-collection-controls" data-template="regular auction" style="margin-bottom: 8px !important;">
+    <div style="display: flex !important; flex-direction: row !important; align-items: flex-start !important; gap: 5px; padding: 0 !important; justify-content: flex-start !important; margin-left: 5px;">
+
+        <!-- PIN SECTION -->
+        <div style="display: flex !important; flex-direction: column !important; align-items: flex-start !important;">
+            
+            <button class="button" id="btn-pin" style="margin: 0 5px 8px 0 !important;">
+                Generate PIN
+            </button>
+
+            <!-- Reserve the PIN space so nothing moves when generated -->
+            <div id="pin-display" style="min-height: 20px !important; width: 95% !important; display: flex !important; justify-content: center !important;"></div>
+
+        </div>
+
+        <!-- F2F + COPY PIN SECTION -->
+        <div style="display: flex !important; flex-direction: column !important; align-items: flex-start !important;">
+
+            <button class="button" id="btn-f2f" style="margin: 0 5px 8px 0 !important;" data-template="regular auction">
+                F2F Trade
+            </button>
+
+            <button class="button" id="btn-copy-pin" style="margin: 0 !important;" onclick="copyPinToClipboard()">
+				Copy PIN
+			</button>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="payment-selection" data-template="regular booster">
+    <button class="button" data-payment="Tek Ceilings">Tek Ceilings</button>
+    <button class="button" data-payment="Tek Cloners">Tek Cloners</button>
+    <button class="button" data-payment="Tek Troughs">Tek Troughs</button>
+    <button class="button" data-payment="Tek Foundations">Tek Foundations</button>
+	<button class="button" data-payment="Tek Walls">Tek Walls</button>
+	<button class="button" data-payment="Large Tek Walls">Large Tek Walls</button>
+	<button class="button" data-payment="Small Teleporters">Small Teleporters</button>
+	<button class="button" data-payment="Medium Teleporters">Medium Teleporters</button>
+	<button class="button" data-payment="Large Teleporters">Large Teleporters</button>
+	<button class="button" data-payment="Tek Generators">Tek Generators</button>
+
+    <button class="button" data-discount="0">-0%</button>
+    <button class="button" data-discount="0.1">-10%</button>
+    <button class="button" data-discount="0.25">-25%</button>
+    <button class="button" data-discount="0.5">-50%</button>
+	<button class="button" data-discount="1">-100%</button>
+	
+	<button class="button" onclick="addExtraFemale()">+1 Female Egg</button>
+    <button class="button" onclick="undoLastAction()">Undo Last Action</button>
+</div>
+
+<div id="order-summary" data-template="regular booster auction"></div>
+<div id="char-count" class="char-counter" data-template="regular booster auction">0 / 2000</div>
+
+<!-- NEW CHECKBOX CONTAINER -->
+<div style="text-align: center; margin-bottom: 10px;" data-template="regular booster">
+    <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: #fff; font-size: 14px;">
+        <input type="checkbox" id="deduct-stock-checkbox" checked>
+        Deduct eggs from stock
+    </label>
+</div>
+
+<div class="inline-group" data-template="regular booster auction">
+    <button class="button rainbow-btn" id="btn-copy">Copy to Clipboard</button>
+    <button class="button" id="btn-reset">Reset</button>
+</div>
+
+<!-- REGULAR TABLE -->
+<div id="regular-tables" class="table-container"></div>
+
+<!-- BOOSTER TABLE -->
+<div id="booster-table-container" style="display:none;"></div>
+
+<div id="admin-panel" data-template="admin">
+
+    <div id="dino-count">Rainbow Dinos: 0</div>
+    <div id="total-price">Total Price: 0</div>
+
+<div id="production-status" style="margin-top: 15px; margin-bottom: 15px;">
+
+    <div style="font-weight: bold; margin-bottom: 8px;">
+        Production Status:
+    </div>
+
+    <div id="breed-now-text" style="color: #ff4d6d;">
+        🔴 Breed now: 0 dinos
+    </div>
+
+    <div id="breed-soon-text" style="color: #ff9800;">
+        🟠 Breed soon: 0 dinos
+    </div>
+
+    <div id="healthy-text" style="color: #4caf50;">
+        🟢 Healthy: 0 dinos
+    </div>
+
+</div>
+
+    <div id="total-pairs-text" style="margin-top: 5px; margin-bottom: 15px;">
+        Total Pairs: 0 (0 Male eggs / 0 Female eggs)
+    </div>
+
+    <div class="top-bar">
+        <button id="btn-filter-red" class="button red" onclick="toggleRedFilter()">Filter Low Stock</button>
+
+        <button class="button admin-file-button" onclick="downloadData()">Download JS</button>
+
+        <label for="fileInput" class="button admin-file-button">
+            Choose File
+        </label>
+
+        <input type="file" id="fileInput" accept=".js" onchange="importFile()">
+    </div>
+
+    <div class="card">
+
+        <h3>Add New Dino</h3>
+
+        <!-- INLINE ROW (THIS IS THE FIX) -->
+        <div class="admin-inline-row">
+            <input id="name" placeholder="Short Name">
+            <input id="full" placeholder="Full Description">
+            <input id="price" type="text" placeholder="Price">
+            <button class="button rainbow-btn" onclick="addDino()">Add Dino</button>
+        </div>
+
+    </div>
+
+    <div class="card table-box">
+
+        <input id="search" placeholder="Search dinos..." oninput="renderTable()">
+
+        <table id="dinoTable">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Full</th>
+					<th style="width: 10px;">Price</th>
+					<th style="width: 70px;">Booster</th>
+					<th style="width: 70px;">Male</th>
+					<th style="width: 70px;">Female</th>
+					<th style="width: 90px;">Add Male</th>
+					<th style="width: 90px;">Add Female</th>
+					<th style="width: 70px;">Remove</th>
+				</tr>
+			</thead>
+    <tbody></tbody>
+</table>
+
+    </div>
+
+</div>
+
+<div id="notes-panel" data-template="notes">
+    
+    <!-- NOTE INPUT -->
+    <div class="card" style="display: flex; flex-direction: column; align-items: center;">
+        
+        <input type="text" id="response-name-input" placeholder="Button Title (Required for Preset)" 
+               style="width: 85%; max-width: 600px; box-sizing: border-box; margin-bottom: 10px; padding: 10px; font-size: 14px; border-radius: 6px; font-family: inherit;">
+        
+        <textarea id="note-input" placeholder="Type the full message here..." 
+                  style="width: 85%; max-width: 600px; box-sizing: border-box; font-family: inherit;"></textarea>
+        
+        <div class="priority-selector" style="margin-top: 10px;">
+            <span class="priority-label">Priority:</span>
+            <div class="dot green active" onclick="setNotePriority('green', this)"></div>
+            <div class="dot yellow" onclick="setNotePriority('yellow', this)"></div>
+            <div class="dot red" onclick="setNotePriority('red', this)"></div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 10px; width: 100%; margin-top: 10px;">
+            <button class="button rainbow-btn" id="btn-save-note" onclick="saveNote()">Save Note</button>
+            <button class="button rainbow-btn" id="btn-save-response" onclick="saveResponse()">Save Preset</button>
+            <button class="button magenta" id="btn-update-response" onclick="updateResponse()" style="display: none;">Update Response</button>
+        </div>
+    </div>
+
+    <!-- EXISTING NOTES -->
+    <div id="notes-display-container"></div>
+
+    <!-- CANNED RESPONSES -->
+    <div class="card" style="width: 300px; min-width: 300px; margin: 20px auto 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <h3 style="margin: 0 0 15px 0; text-align: center; width: 100%; display: block;">
+            Preset Responses
+        </h3>
+
+        <div id="canned-responses-container" style="display: flex; flex-direction: column; gap: 8px; width: 100%;"></div>
+    </div>
+
+</div>
+
+<div id="settings-panel" data-template="settings">
+
+<div style="position: relative; width: 100%; min-height: 500px; padding: 20px;">
+
+    <!-- PAYMENT TYPE ALIGNMENT -->
+    <style>
+        /* =========================================================
+           PAYMENT TYPE SETTINGS ONLY
+        ========================================================= */
+
+        /* TOP ROW LABELS */
+        #settings-section-payment-type .payment-settings-label {
+            display: block !important;
+            height: 19px !important;
+            line-height: 19px !important;
+            margin: 0 0 5px 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+            font-weight: bold;
+        }
+
+        /* TOP ROW INPUTS */
+        #settings-section-payment-type #settings-payment-name,
+        #settings-section-payment-type #settings-payment-multiplier {
+            display: block !important;
+            width: 100% !important;
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* TOP ROW PAYMENT TYPE */
+        #settings-section-payment-type #settings-payment-name {
+            padding: 8px 10px !important;
+        }
+
+        /* TOP ROW MULTIPLIER */
+        #settings-section-payment-type #settings-payment-multiplier {
+            background: #0b1430 !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            border-radius: 6px !important;
+            padding: 8px 10px !important;
+        }
+
+        /* TOP ADD BUTTON */
+        #settings-section-payment-type .settings-add-payment-wrapper {
+            display: flex !important;
+            align-items: flex-end !important;
+            justify-content: flex-end !important;
+            height: 62px !important;
+            box-sizing: border-box !important;
+        }
+
+        #settings-section-payment-type .settings-add-payment-button {
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* EXISTING PAYMENT TYPE ROWS */
+        #settings-section-payment-type #settings-payment-type-list {
+            gap: 10px !important;
+        }
+
+        #settings-section-payment-type #settings-payment-type-list > div {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* EXISTING PAYMENT NAME INPUT */
+        #settings-section-payment-type #settings-payment-type-list > div > input[type="text"] {
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* EXISTING MULTIPLIER INPUT */
+        #settings-section-payment-type #settings-payment-type-list > div > input[type="number"] {
+            width: 150px !important;
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* EXISTING REMOVE BUTTON */
+        #settings-section-payment-type #settings-payment-type-list > div > button {
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* =========================================================
+           ADDITIONAL ORDER SUMMARY TEXT
+        ========================================================= */
+
+        #settings-section-order-summary .settings-additional-text-field {
+            width: 100%;
+            height: 200px;
+            min-height: 200px;
+            max-height: 200px;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        #settings-section-order-summary .settings-additional-text-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
+
+    <!-- SETTINGS MENU -->
+    <div style="position: absolute; left: 20px; top: 60px; width: 180px; display: flex; flex-direction: column; gap: 8px;">
+
+        <button
+            type="button"
+            id="settings-btn-order-summary"
+            class="button"
+            onclick="showSettingsSection('order-summary')">
+            Order Summary
+        </button>
+
+        <button
+            type="button"
+            id="settings-btn-payment-type"
+            class="button"
+            onclick="showSettingsSection('payment-type')">
+            Payment Type
+        </button>
+
+        <button
+            type="button"
+            id="settings-btn-regular-table"
+            class="button"
+            onclick="showSettingsSection('regular-table')">
+            Regular Table
+        </button>
+
+        <button
+            type="button"
+            id="settings-btn-booster-table"
+            class="button"
+            onclick="showSettingsSection('booster-table')">
+            Booster Table
+        </button>
+
+    </div>
+
+    <!-- SETTINGS CONTENT -->
+    <div style="width: 100%;">
+
+        <!-- ORDER SUMMARY -->
+        <div id="settings-section-order-summary">
+
+            <!-- EXISTING ORDER SUMMARY TEMPLATES -->
+            <div class="card"
+                 style="display: flex; flex-direction: column; align-items: center; width: 800px; max-width: 800px; margin: 20px auto;">
+
+                <h3 style="margin-bottom: 20px;">
+                    Order Summary Templates
+                </h3>
+
+                <div style="width: 100%; margin-bottom: 15px;">
+
+                    <label style="display: block; margin-bottom: 5px; color: #4caf50; font-weight: bold;">
+                        Regular Order Summary:
+                    </label>
+
+                    <textarea
+                        id="settings-regular"
+                        placeholder="Regular template..."></textarea>
+
+                </div>
+
+                <div style="width: 100%; margin-bottom: 15px;">
+
+                    <label style="display: block; margin-bottom: 5px; color: #a64dff; font-weight: bold;">
+                        Booster Order Summary:
+                    </label>
+
+                    <textarea
+                        id="settings-booster"
+                        placeholder="Booster template..."></textarea>
+
+                </div>
+
+                <div style="width: 100%; margin-bottom: 15px;">
+
+                    <label style="display: block; margin-bottom: 5px; color: #ff9800; font-weight: bold;">
+                        Auction Order Summary:
+                    </label>
+
+                    <textarea
+                        id="settings-auction"
+                        placeholder="Auction template..."></textarea>
+
+                </div>
+
+                <div
+                    id="settings-template-preview-container"
+                    style="width: 100%; margin-top: 10px;">
+
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">
+                        Preview:
+                    </label>
+
+                    <div id="settings-template-preview">
+                        Select a template above to preview it.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADDITIONAL ORDER SUMMARY TEXT -->
+            <div class="card"
+                 style="display: flex; flex-direction: column; align-items: center; width: 800px; max-width: 800px; margin: 20px auto;">
+
+                <h3 style="margin-bottom: 20px;">
+                    Additional Order Summary Text
+                </h3>
+
+
+                <!-- REGULAR / BOOSTER TEXT -->
+                <div style="width: 100%;">
+
+                    <h4 style="margin: 0 0 15px 0; color: #4caf50;">
+                        Regular / Booster
+                    </h4>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #4caf50;">
+                            Regular Collection:
+                        </label>
+
+                        <textarea
+                            id="settings-regular-collection"
+                            class="settings-additional-text-field"
+                            placeholder="Regular collection text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #4caf50;">
+                            Regular F2F Collection:
+                        </label>
+
+                        <textarea
+                            id="settings-regular-f2f"
+                            class="settings-additional-text-field"
+                            placeholder="Regular Face to Face collection text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #a64dff;">
+                            Booster Collection:
+                        </label>
+
+                        <textarea
+                            id="settings-booster-collection"
+                            class="settings-additional-text-field"
+                            placeholder="Booster collection text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #a64dff;">
+                            Booster Perk:
+                        </label>
+
+                        <textarea
+                            id="settings-booster-perk"
+                            class="settings-additional-text-field"
+                            placeholder="Booster perk text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #4caf50;">
+                            Extra Female:
+                        </label>
+
+                        <textarea
+                            id="settings-extra-female"
+                            class="settings-additional-text-field"
+                            placeholder="Extra female text..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AUCTION TEXT -->
+                <div style="width: 100%; margin-top: 10px;">
+
+                    <h4 style="margin: 0 0 15px 0; color: #ff9800;">
+                        Auction
+                    </h4>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #ff9800;">
+                            Regular Location:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-regular-location"
+                            class="settings-additional-text-field"
+                            placeholder="Regular auction location text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #ff9800;">
+                            Booster Location:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-booster-location"
+                            class="settings-additional-text-field"
+                            placeholder="Booster auction location text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #ff9800;">
+                            Auction Collection:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-collection"
+                            class="settings-additional-text-field"
+                            placeholder="Auction collection text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #ff9800;">
+                            Auction F2F Collection:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-f2f"
+                            class="settings-additional-text-field"
+                            placeholder="Auction Face to Face collection text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #a64dff;">
+                            Auction Booster Collection:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-booster-collection"
+                            class="settings-additional-text-field"
+                            placeholder="Auction booster collection text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #ff9800;">
+                            Auction Detail:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-detail"
+                            class="settings-additional-text-field"
+                            placeholder="Auction detail text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #ff9800;">
+                            Auction Empty Detail:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-empty-detail"
+                            class="settings-additional-text-field"
+                            placeholder="Auction empty detail text..."></textarea>
+
+                    </div>
+
+
+                    <div style="width: 100%; margin-bottom: 15px;">
+
+                        <label
+                            class="settings-additional-text-label"
+                            style="color: #ff9800;">
+                            Auction Total:
+                        </label>
+
+                        <textarea
+                            id="settings-auction-total"
+                            class="settings-additional-text-field"
+                            placeholder="Auction total text..."></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADDITIONAL TEXT PREVIEW -->
+                <div
+                    id="settings-additional-text-preview-container"
+                    style="width: 100%; margin-top: 10px;">
+
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">
+                        Preview:
+                    </label>
+
+                    <div id="settings-additional-text-preview">
+                        Select an additional text field above to preview it.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT TYPE -->
+        <div
+            id="settings-section-payment-type"
+            style="display: none;">
+
+            <div
+                class="card"
+                style="
+                    width: 800px;
+                    max-width: 800px;
+                    margin: 20px auto;
+                ">
+
+                <h3
+                    style="
+                        margin-bottom: 20px;
+                        text-align: center;
+                    ">
+                    Payment Types
+                </h3>
+
+                <!-- ADD PAYMENT TYPE -->
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: 1fr 150px 1fr;
+                        column-gap: 10px;
+                        align-items: end;
+                        margin-bottom: 15px;
+                    ">
+
+                    <!-- LEFT: PAYMENT TYPE -->
+                    <div style="width: 300px;">
+
+                        <label class="payment-settings-label">
+                            Payment Type:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="settings-payment-name"
+                            placeholder="Payment type name">
+
+                    </div>
+
+                    <!-- CENTER: MULTIPLIER -->
+                    <div style="width: 150px;">
+
+                        <label 
+						class="payment-settings-label"
+						style="text-align: center;">
+                            Multiplier:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="settings-payment-multiplier"
+                            placeholder="0.01"
+                            step="0.01"
+                            min="0">
+
+                    </div>
+
+                    <!-- RIGHT: ADD PAYMENT TYPE -->
+                    <div class="settings-add-payment-wrapper">
+
+                        <button
+                            type="button"
+                            class="button settings-add-payment-button"
+                            onclick="addPaymentType()">
+                            Add Payment Type
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- PAYMENT TYPE LIST -->
+                <div
+                    id="settings-payment-type-list"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                    ">
+                </div>
+
+            </div>
+
+        </div>
+
+<!-- REGULAR TABLE SETTINGS -->
+<div
+    id="settings-section-regular-table"
+    style="display: none; padding-top: 250px;">
+
+    <div id="settings-regular-table-preview"></div>
+
+</div>
+
+<!-- BOOSTER TABLE SETTINGS -->
+<div
+    id="settings-section-booster-table"
+    style="display: none; padding-top: 250px;">
+
+    <div id="settings-booster-table-preview"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Custom App Alert Modal -->
+<div id="app-alert-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:10000; justify-content:center; align-items:center;">
+    <div class="confirm-box" style="border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 0 30px rgba(0,0,0,0.5);">
+        <div class="confirm-text" id="app-alert-text" style="font-weight: bold; margin-bottom: 20px;"></div>
+        <div style="display: flex; justify-content: center;">
+            <button class="button" id="app-alert-ok-btn" style="border: 1px solid #ff4d6d; color: white; padding: 10px 30px;">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- Scroll to Top Button -->
+<button id="btn-scroll-top" class="button scroll-top-btn rainbow-btn" onclick="scrollToTop()">
+    ⬆
+</button>
+
+<!-- Inside <div id="breeding-panel"> -->
+<div id="breeding-panel" data-template="breeding">
+    
+    <!-- New Toggle Button at the top left -->
+    <div style="margin-bottom: 15px; margin-left: 5px;">
+        <button id="toggle-creator-btn" class="button blue rainbow-btn" onclick="toggleCardCreator()">Show Card Creator</button>
+    </div>
+
+    <div class="breeding-controls">
+        <div class="breeding-form-card" id="breeding-form-card" style="display: none;">
+            <h3>Add New Dino Card</h3>
+            
+            <div style="margin-bottom: 15px;">
+                <label style="font-size: 10px; color:#4da3ff; display:block; margin-bottom: 4px;">Rainbow Dino Name:</label>
+                <input type="text" id="breed-name" placeholder="e.g. Boss Rex Line" style="width: 100%; margin: 0 !important;">
+            </div>
+
+            <!-- STATS INPUT GROUP UPDATED FOR TWO COLUMNS -->
+            <div class="stats-input-group">
+                <div class="stat-header-row">
+                    <div style="width: 80px;"></div>
+                    <div class="stat-label-sub">WILD</div>
+                    <div class="stat-label-sub">MUT</div>
+                </div>
+
+                <!-- Health -->
+                <div class="stat-row">
+                    <label>Health</label>
+                    <div class="stat-box"><input type="number" id="stat-h-w" placeholder=""></div>
+                    <div class="stat-box"><input type="number" id="stat-h-m" placeholder=""></div>
+                </div>
+                <!-- Stamina -->
+                <div class="stat-row">
+                    <label>Stamina</label>
+                    <div class="stat-box"><input type="number" id="stat-s-w" placeholder=""></div>
+                    <div class="stat-box"><input type="number" id="stat-s-m" placeholder=""></div>
+                </div>
+                <!-- Oxygen -->
+                <div class="stat-row">
+                    <label>Oxygen</label>
+                    <div class="stat-box"><input type="number" id="stat-o-w" placeholder=""></div>
+                    <div class="stat-box"><input type="number" id="stat-o-m" placeholder=""></div>
+                </div>
+                <!-- Food -->
+                <div class="stat-row">
+                    <label>Food</label>
+                    <div class="stat-box"><input type="number" id="stat-f-w" placeholder=""></div>
+                    <div class="stat-box"><input type="number" id="stat-f-m" placeholder=""></div>
+                </div>
+                <!-- Weight -->
+                <div class="stat-row">
+                    <label>Weight</label>
+                    <div class="stat-box"><input type="number" id="stat-w-w" placeholder=""></div>
+                    <div class="stat-box"><input type="number" id="stat-w-m" placeholder=""></div>
+                </div>
+                <!-- Melee -->
+                <div class="stat-row">
+                    <label>Melee</label>
+                    <div class="stat-box"><input type="number" id="stat-m-w" placeholder=""></div>
+                    <div class="stat-box"><input type="number" id="stat-m-m" placeholder=""></div>
+                </div>
+            </div>
+
+            <div class="color-input-group">
+                <!-- R0-R5 boxes remain the same, ensure oninput="updateColorPreview(this)" is there -->
+                <div class="color-box-wrap"><label>R0</label><div class="color-box"><input type="number" class="color-input" oninput="updateColorPreview(this)"></div></div>
+                <div class="color-box-wrap"><label>R1</label><div class="color-box"><input type="number" class="color-input" oninput="updateColorPreview(this)"></div></div>
+                <div class="color-box-wrap"><label>R2</label><div class="color-box"><input type="number" class="color-input" oninput="updateColorPreview(this)"></div></div>
+                <div class="color-box-wrap"><label>R3</label><div class="color-box"><input type="number" class="color-input" oninput="updateColorPreview(this)"></div></div>
+                <div class="color-box-wrap"><label>R4</label><div class="color-box"><input type="number" class="color-input" oninput="updateColorPreview(this)"></div></div>
+                <div class="color-box-wrap"><label>R5</label><div class="color-box"><input type="number" class="color-input" oninput="updateColorPreview(this)"></div></div>
+            </div>
+
+            <button class="button save-dino-card" style="width: 100%; margin-top: 15px !important;" onclick="saveDinoCard()">Save Dino Card</button>
+        </div>
+
+        <!-- Search bar moved BELOW the card creator -->
+        <div style="margin-top: 20px;">
+            <input type="text" id="breeding-search" placeholder="Search Dino Library..." style="width: 300px; margin-left: 5px !important;">
+        </div>
+    </div>
+
+    <div id="breeding-library-display"></div>
+</div>
+
+<div id="ads-section" data-template="ads">
+    <div class="ads-main-layout">
+        
+        <!-- THE CONTROLS (Left Side) -->
+        <div class="ads-sidebar">
+            <h3>Ad Settings</h3>
+            
+            <div class="control-group">
+                <label>1. Upload Images</label>
+                <button class="button" onclick="document.getElementById('input-dino').click()">Dino Image</button>
+                <button class="button" onclick="document.getElementById('input-stats').click()">Stats Image</button>
+                <input type="file" id="input-dino" hidden onchange="loadAdImage(event, 'ad-dino-img')">
+                <input type="file" id="input-stats" hidden onchange="loadAdImage(event, 'ad-stats-img')">
+            </div>
+
+            <div class="control-group">
+                <label>2. Details</label>
+                <input type="text" placeholder="Stat Breeder..." oninput="updateBreederText('stat-breeder', this.value)">
+                <input type="text" placeholder="Color Breeder..." oninput="updateBreederText('color-breeder', this.value)">
+                <input type="text" placeholder="Price Amount (e.g. 500)" oninput="updatePriceValue(this.value)">
+                
+                <div style="display: flex; gap: 10px;">
+                    <button class="button type-btn active" onclick="setPriceType('egg')">Egg</button>
+                    <button class="button type-btn" onclick="setPriceType('embryo')">Embryo</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>3. Image Zoom</label>
+                <span>Dino Zoom:</span>
+                <input type="range" id="dino-zoom-slider" min="0.1" max="5" step="0.01" value="1" oninput="zoomAdImage('ad-dino-img', this.value)">
+                <span>Stats Zoom:</span>
+                <input type="range" id="stats-zoom-slider" min="0.1" max="5" step="0.01" value="1" oninput="zoomAdImage('ad-stats-img', this.value)">
+            </div>
+
+            <button class="button rainbow-btn" style="margin-top: 20px;" onclick="exportAdAsPNG()">Save Ad to Desktop</button>
+        </div>
+
+        <!-- THE PREVIEW (Right Side) -->
+        <div class="ads-canvas-area">
+            <div id="ad-canvas-wrapper">
+                <img id="layer-bg" class="layer" src="../../assets/ads/base_bg.png">
+
+                <div id="dino-window" class="image-window">
+                    <img id="ad-dino-img" class="draggable-img" src="">
+                </div>
+
+                <div id="stats-window" class="image-window">
+                    <img id="ad-stats-img" class="draggable-img" src="">
+                </div>
+
+                <img id="layer-overlay" class="layer" src="../../assets/ads/overlay_f4.png">
+
+                <!-- Text Layers -->
+                <div id="ad-text-stat-breeder" class="ad-text fountain-yellow-red">Stats: </div>
+                <div id="ad-text-color-breeder" class="ad-text fountain-yellow-red">Color: </div>
+                
+                <div id="ad-text-price-block" class="ad-text fountain-cyan-red">
+                    000 Tek
+                    <span class="price-suffix">per pair eggs</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- CORE STATE / STORAGE -->
+<script src="../js/state.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/admin.js"></script>
+
+<!-- LOGIC -->
+<script src="../js/orders.js"></script>
+<script src="../js/dinos.js"></script>
+<script src="../data/settingsdata.js"></script>
+<script src="../js/settings.js"></script>
+<script src="../js/ui.js"></script>
+
+<!-- MAIN APP (LOAD LAST) -->
+<script src="../js/app.js"></script>
+<script src="../js/notes.js"></script>
+<script src="../js/breeding.js"></script>
+<script src="../js/ads.js"></script>
+
+</body>
+</html>

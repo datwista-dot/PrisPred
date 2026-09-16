@@ -1,0 +1,295 @@
+/* =========================
+   CUSTOM FONT REGISTRATION
+========================= */
+
+@font-face {
+    font-family: 'CenturyGothic';
+    src: url('../../assets/ads/GOTHIC.TTF') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BritannicBold';
+    src: url('../../assets/ads/BRITANIC.TTF') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* =========================
+   ADS MODULE LAYOUT
+========================= */
+
+.ads-main-layout {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    gap: 25px;
+    align-items: stretch; 
+    box-sizing: border-box;
+}
+
+.ads-sidebar {
+    width: 380px;
+    flex-shrink: 0;
+    background: #0b1430;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content; 
+}
+
+.ads-canvas-area {
+    flex: 1; 
+    width: 771px; 
+    min-width: 771px;
+    background: #000; 
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+#ad-canvas-wrapper {
+    position: absolute; 
+    width: 2202px;
+    height: 1245px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.35);
+    user-select: none;
+    flex-shrink: 0;
+    background: #000;
+}
+
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2202px;
+    height: 1245px;
+}
+
+#layer-bg { z-index: 1; }
+#layer-overlay { z-index: 50; pointer-events: none; }
+
+/* =========================
+   IMAGE WINDOWS
+========================= */
+
+.image-window {
+    position: absolute;
+    overflow: hidden;
+    border: 1px dotted rgba(255, 255, 255, 0.2);
+}
+
+#dino-window { bottom: 5px; left: 5px; width: 1382px; height: 765px; z-index: 10; }
+#stats-window { top: 5px; right: 5px; width: 807px; height: 1233px; z-index: 11; }
+
+#image-selection-guide {
+    position: absolute;
+    z-index: 70; 
+    border: 3px dotted #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    display: none;
+}
+
+.exporting #image-selection-guide, .exporting .image-window { display: none !important; }
+
+.draggable-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    cursor: move;
+    transform-origin: center center !important; 
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto; 
+    display: block;
+    max-width: none;
+}
+
+/* =========================
+   TEXT GRADIENTS
+========================= */
+
+.fountain-yellow-red {
+    background: linear-gradient(90deg, #fff200 0%, #ed1c24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* Update ONLY this block in ads.css */
+.fountain-cyan-red {
+    background: linear-gradient(
+        90deg, 
+        #00aee9 0%,    /* Deep Process Cyan (Ink style) */
+        #00c0f0 30%,   /* Mid-Cyan to prevent muddy transition */
+        #e31e24 70%,   /* Richer, deeper Red */
+        #e31e24 100%   /* Professional Crimson Red */
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* =========================
+   TEXT LAYER POSITIONS
+========================= */
+
+.ad-text {
+    position: absolute;
+    z-index: 60; 
+    text-transform: none; 
+    white-space: nowrap;
+    pointer-events: none; 
+    line-height: 1.0; 
+    top: auto !important;
+
+    /* Anti-Stretch Fixes */
+    font-stretch: normal;
+    letter-spacing: -0.01em; 
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* Breeders: Century Gothic - LOCKED (PERFECT) */
+#ad-text-stat-breeder, #ad-text-color-breeder {
+    font-family: 'CenturyGothic', sans-serif;
+    left: 57.13px;
+    font-size: 61px; 
+    text-align: left;
+}
+
+#ad-text-stat-breeder { bottom: 880.194px !important; } 
+#ad-text-color-breeder { bottom: 811.504px !important; }
+
+/* Price Block: Britannic Bold */
+#ad-text-price-block {
+    font-family: 'BritannicBold', sans-serif;
+    /* MOVED DOWN SIGNIFICANTLY to fix top-line height */
+    bottom: 797.004px !important; 
+    left: 1173.43px; 
+    transform: translateX(-50%); 
+    
+    font-size: 70px; 
+    text-align: center; 
+    min-width: 1000px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: -0.02em; 
+    padding-bottom: 20px;       /* Adds 'ink' space for the bottom of the letters */
+    margin-bottom: -20px;      /* Offsets the padding so the text doesn't actually move */
+    overflow: visible !important; 
+}
+
+/* Sub-line: per pair of eggs / embryo */
+.price-suffix {
+    font-size: 70px; 
+    display: block;
+    /* INCREASED GAP to drop the second line lower */
+    margin-top: -5px; 
+    padding-bottom: 10px;       /* Extra safety for the 'eggs' line */
+    overflow: visible !important;
+}
+
+/* =========================
+   UI CONTROLS
+========================= */
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-group label {
+    font-size: 10px;
+    color: #4da3ff;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.type-btn {
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.type-btn.active {
+    border: 1px solid transparent !important;
+    color: #ffffff !important;
+    background: transparent !important;
+    overflow: hidden;
+    
+    /* THE FIX: Explicitly kill the global theme's glow and scaling */
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.type-btn.active::before {
+    content: "";
+    position: absolute;
+    inset: -1px; 
+    background: linear-gradient(
+        90deg,
+        #ff4d6d,
+        #ffd166,
+        #00ff9d,
+        #4da3ff,
+        #b26bff,
+        #ff4d6d
+    );
+    background-size: 300%;
+    animation: rainbowFlow 6s linear infinite;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+.type-btn.active::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: #0b1430; 
+    border-radius: 9px;
+    z-index: -1;
+}
+
+/* =========================
+   AD SETTINGS RAINBOW HEADING
+========================= */
+.ads-sidebar h2,
+.ads-sidebar h3 {
+    text-align: center;
+    margin: 0 0 15px 0;
+    letter-spacing: 1px;
+
+    /* The Rainbow Magic */
+    background: linear-gradient(
+        90deg,
+        #ff4d6d,
+        #ffd166,
+        #00ff9d,
+        #4da3ff,
+        #b26bff,
+        #ff4d6d
+    );
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Uses your global rainbow animation */
+    animation: rainbowFlow 6s linear infinite;
+}
